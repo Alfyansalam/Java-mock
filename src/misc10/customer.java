@@ -58,31 +58,42 @@ abstract class account
 
 	
 }
- abstract class  SavingsAcoount extends account
+ class  SavingsAcoount extends account
 {
 	private double minimumBalance;
 	
 
-	public SavingsAcoount(int accountNumber, customer cobj, double balance,double minimumBalance) {
+	public SavingsAcoount(int accountNumber, customer cobj, double balance,double minimumBalance)
+	{
 		super(accountNumber, cobj, balance);
+        this.minimumBalance=minimumBalance;
+
 		
 	}
-	public boolean withdraw(double amount)
-	{
-		if(balance> minimumBalance)
-		{
-			return true;
-		}else 
-			return false;
-	}
+	public double getMinimumBalance() {
+        return minimumBalance;
+    }
+    public void setMinimumBalance(double minimumBalance) {
+        this.minimumBalance = minimumBalance;
+    }
+    public boolean withdraw(double amount)
+    {
+        if(balance-amount>minimumBalance)
+        {
+            balance-=amount;
+            return true;
+        }
+        return false;
+    }
 	
 }
  
 	class main
 	{
 		public static void main(String[] args) {
-			
-
+			customer c=new customer(1,"alfy","alfy@com");
+			SavingsAcoount a=new SavingsAcoount(123,c,1000,200);
+			System.out.println(a.withdraw(500));
 		}
 	 
 	}
